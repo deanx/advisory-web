@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from "axios";
-
+import { API_URL } from '../constants';
 import {
     FormControl, Input, Button,
     HStack, VStack, Box
@@ -10,16 +10,16 @@ import {
   StarIcon, DeleteIcon
 } from '@chakra-ui/icons'
 
-
 function Projects(props) {
-    const [newProject, setNewProject] = useState(null);
+    const [newProject, setNewProject] = useState("");
 
       const [, setState] = React.useState(new Date());
 
       const deleteProject = async (index, project) =>  {
        props.projects.projects.splice(index, 1)
         try {
-          await axios.delete("http://localhost:8000/projects/jsmith/" + project)
+          await axios.delete(API_URL + "/projects/" + props.profile.id + "/" + project)
+          console.log(API_URL + "projects/" + props.profile.id + "/" + project);
           props.setdata({"projects" : props.projects.projects})
           
           setState(new Date());
@@ -35,9 +35,9 @@ function Projects(props) {
       const createProject = async() => {
         try {
           await axios.post(
-            "http://localhost:8000/projects",
+            API_URL + "/projects",
               {
-              username: "jsmith",
+              username: props.profile.id,
               project: newProject 
               }
             );
@@ -60,7 +60,7 @@ function Projects(props) {
     {props.projects.projects && <VStack align='stretch' height='100%'>
       {
         props.projects.projects.map((project,counter) => {
-          return <Box bgColor='#E5E5E5' key={"box" + counter} color='#666' p={3} fontSize="small" borderRadius='2' marginBottom={2}>
+          return <Box bgColor='E5E5E5' key={"box" + counter} color='666' p={3} fontSize="small" borderRadius='2' marginBottom={2}>
                     <HStack key={counter}><StarIcon boxSize={4} marginRight={2} color='orange'/>
                     <span style={{width:'400px'}}>{project}</span>
                     <DeleteIcon boxSize={4} marginLeft={14} color='red' onClick={() => deleteProject(counter, project)}/>

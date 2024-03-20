@@ -10,6 +10,7 @@ import {
 import {
   StarIcon, DeleteIcon
 } from '@chakra-ui/icons'
+import { API_URL } from '../constants';
 
 
 function Files(props) {
@@ -20,7 +21,7 @@ function Files(props) {
 
   const updateProject = async (project) => {
     try {
-      const response = await axios.get("http://localhost:8000/projects/" + project + "/files")
+      const response = await axios.get(API_URL + "/projects/" + project + "/files")
       setFiles(response.data.files)
       setCurrentProject(project)
     } catch (error) {
@@ -31,7 +32,7 @@ function Files(props) {
 
   const deleteFile = async (id, project, index) => {
     try {
-      await axios.delete("http://localhost:8000/aprojects/jsmith/" + project + "/files/" + id)
+      await axios.delete(API_URL + "/aprojects/" + props.profile.id + "/" + project + "/files/" + id)
       files.splice(index, 1)
 
 
@@ -68,7 +69,7 @@ function Files(props) {
 
     formData.append(
       "username",
-      "jsmith"
+      props.profile.id
     );
 
     formData.append(
@@ -76,15 +77,12 @@ function Files(props) {
       currentProject
     );
     // Details of the uploaded file
-    console.log(formData);
 
     // Request made to the backend api
     // Send formData object
     try {
-      const response = await axios.post("http://localhost:8000/uploadfile", formData);
+      const response = await axios.post(API_URL + "/uploadfile", formData);
       files.push([response.data.rowID, "1", "", state.selectedFile.name])
-      console.log(response)
-      console.log(files)
       setState(new Date());
     } catch (error) {
       alert("error");
