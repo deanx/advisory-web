@@ -79,8 +79,8 @@ function Chat(props) {
 
           <FormControl borderColor='none' padding='2px' w='200px'>
             <Select size='md' placeholder='Role...' onChange={(event) => setCurrentRole(event.target.options[event.target.selectedIndex].value)}>
-              <option value='Advisor'>Advisor</option>
-              <option value='Consultant'>Consultant</option>
+              <option value='Advisor'>Strategic</option>
+              <option value='Consultant'>Tactical</option>
             </Select>
           </FormControl>
           <FormControl borderColor='none' padding='2px' w='200px'>

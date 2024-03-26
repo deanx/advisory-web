@@ -159,7 +159,9 @@ function Files(props) {
           w="calc(50%)"
           accept='application/pdf, 
                   application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
-                  application/vnd.openxmlformats-officedocument.presentationml.presentation'
+                  application/vnd.openxmlformats-officedocument.presentationml.presentation,
+                  image/x-png,
+                  image/jpeg'
         />
         <Button colorScheme='blue' size='md' fontSize='xs' onClick={() => onFileUpload()}>
           Upload!

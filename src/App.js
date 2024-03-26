@@ -31,7 +31,9 @@ function App() {
 
   
   const [data, setData] = useState([]);
-  const [profile, setProfile] = useState();
+  const [profile, setProfile] = useState({id: '109074701532584190598', email: 'alex@divinocosta.com.br', 
+  verified_email: true, name: 'Alex Costa', given_name: 'Alex'});
+
   useEffect(() => {
     async function fetchProjects() {
       const result = await fetch(API_URL + "/" + profile.id + "/projects");
